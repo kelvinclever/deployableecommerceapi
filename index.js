@@ -20,12 +20,12 @@ app.use("/products", productRouter);
 app.use("/orders", orderRouter);
 app.use("/customers", customerRouter);
 app.use("/admins", adminRouter);
-const  PORT  = process.env.PORT || 8080;
+const  PORT  = 8080;
 
 app.get("/", (req, res) => {
   res.send("hey this is QCS api");
 });
 
-app.listen(PORT, () => {
+app.listen(PORT || 5000, () => {
   console.log(`Server is up and running on port `);
 });

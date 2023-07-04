@@ -9,7 +9,7 @@ dotenv.config()
 
 export const adminlogin = async (req, res) => {
   try {
-    const connection = await sql.connect(dbConfig);
+    const connection = await sql.connect(dbConfig.sql);
     const { username, email, password} = req.body;
     const query = "SELECT * FROM admin WHERE username = @username AND email = @email";
 
@@ -49,7 +49,7 @@ export const adminlogin = async (req, res) => {
 
 export const getAlladmin = async (req, res) => {
     try {
-      const connection = await sql.connect(dbConfig);
+      const connection = await sql.connect(dbConfig.sql);
       const query = "SELECT * FROM admin";
       const result = await connection.query(query);
   
@@ -67,7 +67,7 @@ export const getAlladmin = async (req, res) => {
     try {
       const { first_name, last_name, email, username,password } = req.body;
   
-      const connection = await sql.connect(dbConfig);
+      const connection = await sql.connect(dbConfig.sql);
   
       const query1 = "SELECT * FROM admin WHERE username= @username";
       const result = await connection
@@ -108,7 +108,7 @@ export const getAlladmin = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const connection = await sql.connect(dbConfig);
+    const connection = await sql.connect(dbConfig.sql);
 
     const query = `
       DELETE FROM admin
@@ -133,7 +133,7 @@ export const updateAdmin = async (req, res) => {
     const { id } = req.params;
     const { first_name, last_name, email, password } = req.body;
 
-    const connection = await sql.connect(dbConfig);
+    const connection = await sql.connect(dbConfig.sql);
 
     const query = `
       UPDATE admin

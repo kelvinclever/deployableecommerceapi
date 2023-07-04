@@ -7,7 +7,7 @@ dotenv.config();
 export const createOrder = async (req, res) => {
   try {
     const { customer_id, order_date, total_amount, payment_id } = req.body;
-    const connection = await sql.connect(dbConfig);
+    const connection = await sql.connect(dbConfig.sql);
 
     const query = `
       INSERT INTO Orders (customer_id, order_date, total_amount, payment_id)
@@ -32,7 +32,7 @@ export const createOrder = async (req, res) => {
 
 export const getAllOrders = async (req, res) => {
   try {
-    const connection = await sql.connect(dbConfig);
+    const connection = await sql.connect(dbConfig.sql);
     const query = "SELECT * FROM Orders";
     const result = await connection.request().query(query);
 
@@ -47,7 +47,7 @@ export const getAllOrders = async (req, res) => {
 export const getOrderById = async (req, res) => {
   try {
     const { order_id } = req.params;
-    const connection = await sql.connect(dbConfig);
+    const connection = await sql.connect(dbConfig.sql);
     const query = "SELECT * FROM Orders WHERE order_id = @order_id";
     const result = await connection
       .request()
@@ -70,7 +70,7 @@ export const updateOrder = async (req, res) => {
   try {
     const { order_id } = req.params;
     const { customer_id, order_date, total_amount, payment_id } = req.body;
-    const connection = await sql.connect(dbConfig);
+    const connection = await sql.connect(dbConfig.sql);
 
     const query = `
       UPDATE Orders
@@ -99,7 +99,7 @@ export const updateOrder = async (req, res) => {
 export const deleteOrder = async (req, res) => {
   try {
     const { order_id } = req.params;
-    const connection = await sql.connect(dbConfig);
+    const connection = await sql.connect(dbConfig.sql);
     const query = "DELETE FROM Orders WHERE order_id = @order_id";
 
     await connection

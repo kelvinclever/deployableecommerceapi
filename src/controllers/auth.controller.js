@@ -9,7 +9,7 @@ dotenv.config()
 
 export const login = async (req, res) => {
   try {
-    const connection = await sql.connect(dbConfig);
+    const connection = await sql.connect(dbConfig.sql);
     const {email, password} = req.body
     const query1 = "SELECT * FROM customers WHERE email= @email"
     

@@ -16,7 +16,7 @@ export const addProduct = async (req, res) => {
       image_path,
     } = req.body;
 
-    const connection = await sql.connect(dbConfig);
+    const connection = await sql.connect(dbConfig.sql);
     const query = `
       INSERT INTO Products (name, description, price, quantity_available, category_name, brand, image_path)
       VALUES (@name, @description, @price, @quantity_available, @category_name, @brand, @image_path)
@@ -43,7 +43,7 @@ export const addProduct = async (req, res) => {
 
 export const getAllProducts = async (req, res) => {
   try {
-    const connection = await sql.connect(dbConfig);
+    const connection = await sql.connect(dbConfig.sql);
     const query = "SELECT * FROM Products";
     const result = await connection.request().query(query);
 
@@ -59,7 +59,7 @@ export const getProductById = async (req, res) => {
   try {
     const { product_id } = req.params;
 
-    const connection = await sql.connect(dbConfig);
+    const connection = await sql.connect(dbConfig.sql);
     const query = "SELECT * FROM Products WHERE product_id = @product_id";
     const result = await connection
       .request()
@@ -91,7 +91,7 @@ export const updateProduct = async (req, res) => {
       image_path,
     } = req.body;
 
-    const connection = await sql.connect(dbConfig);
+    const connection = await sql.connect(dbConfig.sql);
     const query = `
       UPDATE Products SET
       name = @name,
@@ -128,7 +128,7 @@ export const deleteProduct = async (req, res) => {
   try {
     const { product_id } = req.params;
 
-    const connection = await sql.connect(dbConfig);
+    const connection = await sql.connect(dbConfig.sql);
     const query = "DELETE FROM Products WHERE product_id = @product_id";
 
     await connection

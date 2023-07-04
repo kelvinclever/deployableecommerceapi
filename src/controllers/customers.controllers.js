@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt'
 dotenv.config();
 
 const isCustomerExist = async (customer_id) => {
-  const connection = await sql.connect(dbConfig);
+  const connection = await sql.connect(dbConfig.sql);
   const query = "SELECT * FROM Customers WHERE customer_id= @customer_id";
   const result = await connection
     .request()
@@ -20,7 +20,7 @@ const isCustomerExist = async (customer_id) => {
 
 export const getAllCustomers = async (req, res) => {
   try {
-    const connection = await sql.connect(dbConfig);
+    const connection = await sql.connect(dbConfig.sql);
     const query = "SELECT * FROM Customers";
     const result = await connection.query(query);
 
@@ -38,7 +38,7 @@ export const addCustomer = async (req, res) => {
   try {
     const { email, first_name, last_name, phone_number, password } = req.body;
 
-    const connection = await sql.connect(dbConfig);
+    const connection = await sql.connect(dbConfig.sql);
 
     // Check if the user already exists
     const query1 = "SELECT * FROM customers WHERE email = @email";
@@ -83,7 +83,7 @@ export const getCustomerById = async (req, res) => {
       return res.status(404).json({ message: "Customer not found" });
     }
 
-    const connection = await sql.connect(dbConfig);
+    const connection = await sql.connect(dbConfig.sql);
     const query = "SELECT * FROM Customers WHERE customer_id = @customer_id";
     const result = await connection
       .request()
@@ -110,7 +110,7 @@ export const updateCustomer = async (req, res) => {
 
     const { first_name, last_name, phone_number, email } = req.body;
 
-    const connection = await sql.connect(dbConfig);
+    const connection = await sql.connect(dbConfig.sql);
     const query = `
       UPDATE Customers
       SET first_name = @first_name, last_name = @last_name, phone_number = @phone_number,
@@ -143,7 +143,7 @@ export const deleteCustomer = async (req, res) => {
       return res.status(404).json({ message: "Customer not found" });
     }
 
-    const connection = await sql.connect(dbConfig);
+    const connection = await sql.connect(dbConfig.sql);
     const query = "DELETE FROM Customers WHERE customer_id = @customer_id";
 
     await connection

@@ -27,5 +27,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen( dbConfig.PORT || 5000, () => {
-  console.log(`Server is up and running on port `);
+  console.log("Server is up and running on port ");
 });

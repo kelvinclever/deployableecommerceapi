@@ -1,7 +1,7 @@
 import dotenv from "dotenv"
 dotenv.config() 
  
-const {USER,PORT,PASSWORD,SERVER,DATABASE} = process.env
+const {USER,PASSWORD,SERVER,DATABASE} = process.env
 
 
 export const dbConfig = {
